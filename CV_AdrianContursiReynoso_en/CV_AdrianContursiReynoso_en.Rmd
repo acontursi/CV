@@ -1,0 +1,60 @@
+---
+name: Adrian
+surname: Contursi-Reynoso
+position: "Political and Data Scientist | Geographic Information System Developer"
+#address: "National University of the Litoral | Autonomous University of Entre Rios"
+phone: +1 646 480 0792
+#phone: +549 342 4855206
+www: adriancontursi.com.ar
+email: "acontursi@gmail.com"
+googlescholar: "https://scholar.google.com/citations?user=7YIFqRYAAAAJ&hl=en"
+twitter: acontursi
+github: acontursi
+linkedin: acontursi
+date: "`r format(Sys.time(), '%B %Y')`"
+output: 
+  vitae::awesomecv:
+    page_total: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+library(vitae)
+library(tidyverse)
+
+# install.packages("readxl") uncomment this if you need to install the package
+library(readxl)
+readExcelSheets <- function(filename){
+  # read all sheets in .xlsx 
+  all <- readxl::excel_sheets(filename)
+  # import each sheet into a list using readxl::read_excel
+  list <- lapply(all, function(x) readxl::read_excel(filename, sheet = x))
+  # save sheet name for each sheet (list)
+  names(list) <- all
+  # breaks up list and creates a dataframe for each sheet with df names matching sheet names
+  list2env(list, envir = .GlobalEnv)
+}
+
+library(here)
+
+# Load the file and read it.
+filename <- here::here("CV_AdrianContursiReynoso_en/CV_AdrianContursiReynoso_en.xlsx")
+readExcelSheets(filename)
+```
+
+# Some stuff about me
+
+ * I poisoned myself doing research.
+ * I was the first woman to win a Nobel prize
+ * I was the first person and only woman to win a Nobel prize in two different sciences.
+
+# Education
+
+```{r}
+education %>% 
+  detailed_entries(what = degree,
+                   when = year,
+                   with = institution,
+                   where = where,
+                   why = details)
+```
